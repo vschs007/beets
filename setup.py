@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 # This file is part of beets.
 # Copyright 2016, Adrian Sampson.
-#
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
@@ -16,19 +14,14 @@
 # included in all copies or substantial portions of the Software.
 
 from __future__ import division, absolute_import, print_function
-
 import os
 import sys
 import subprocess
 import shutil
 from setuptools import setup
-
-
 def _read(fn):
     path = os.path.join(os.path.dirname(__file__), fn)
     return open(path).read()
-
-
 def build_manpages():
     # Go into the docs directory and build the manpage.
     docdir = os.path.join(os.path.dirname(__file__), 'docs')
@@ -41,19 +34,14 @@ def build_manpages():
         return
     finally:
         os.chdir(curdir)
-
     # Copy resulting manpages.
     mandir = os.path.join(os.path.dirname(__file__), 'man')
     if os.path.exists(mandir):
         shutil.rmtree(mandir)
     shutil.copytree(os.path.join(docdir, '_build', 'man'), mandir)
-
-
 # Build manpages if we're making a source distribution tarball.
 if 'sdist' in sys.argv:
     build_manpages()
-
-
 setup(
     name='beets',
     version='1.4.4',
@@ -66,7 +54,6 @@ setup(
     long_description=_read('README.rst'),
     test_suite='test.testall.suite',
     include_package_data=True,  # Install plugin resources.
-
     packages=[
         'beets',
         'beets.ui',
@@ -84,7 +71,6 @@ setup(
             'beet = beets.ui:main',
         ],
     },
-
     install_requires=[
         'six>=1.9',
         'mutagen>=1.33',
@@ -95,7 +81,6 @@ setup(
         'jellyfish',
     ] + (['colorama'] if (sys.platform == 'win32') else []) +
         (['enum34>=1.0.4'] if sys.version_info < (3, 4, 0) else []),
-
     tests_require=[
         'beautifulsoup4',
         'flask',
@@ -108,7 +93,6 @@ setup(
         'python-mpd2',
         'discogs-client'
     ],
-
     # Plugin (optional) dependencies:
     extras_require={
         'absubmit': ['requests'],
@@ -128,7 +112,6 @@ setup(
     # convert: ffmpeg
     # bpd: python-gi and GStreamer
     # absubmit: extractor binary from http://acousticbrainz.org/download
-
     classifiers=[
         'Topic :: Multimedia :: Sound/Audio',
         'Topic :: Multimedia :: Sound/Audio :: Players :: MP3',
